@@ -1,0 +1,40 @@
+Each chunk of columns have an array of cluster parts
+clusterPart clusterParts []
+
+Each cluster part keeps track of its own info and who it comes in contact with
+struct clusterPart {
+	int clusterSize;
+	int colSpan[];
+	int rowSpan[];
+	westBoundary [];		array of boundary coordinates that connects with nodes to the left
+	eastBoundary [];		array of boundary coordinates that connects with nodes to the right
+	int westClusters [];	id or index of the connected cluster parts to the left
+	int eastClusters [];	id or index of the connected cluster parts to the right
+}
+
+Stitching DOES NOT WORK FOR FULL WRAP AROUND CLUSTERS AND CLUSTERS WHICH START IN THE MIDDLE AND WRAPS AROUND
+Iterate through clusterParts[]
+	For each eastBoundary coordinate in clusterPart
+		Iterate through the neighbour clusterParts[] to the right
+			Iterate and find the matching coordinate in a clusterPart
+				If there is a match, check that its own index is not in the westClusters[] of the neighbour, so it knows it hasn't encountered this part before. This prevents duplicate incrementations in clusterSize.
+					Increment the cluster size for both clusterPart
+					Merge colSpan and rowSpan for both clusterPart
+					Append the index of the east clusterPart to eastClusters[]
+					Append its own index to westClusters[] of the neighbour clusterPart
+					Iterate through its own eastClusters[], increment clusterSize and update colSpan[] and rowSpan[] for previously connected clusterParts
+					Check and update global largestCluster
+					Check and update global largestSpan
+
+For this method, there is a lot of repeated data. Each cluster part for the same cluster will have the exact same data to ensure when it moves onto the next clusterParts[], it is all up-to-date.
+
+Alternate
+Non stitching, using the same search method from project 1
+Have the master node 'supervise' the other nodes, itself not doing any cluster search
+The whole public lattice is shared with all nodes
+Each time it finds a new cluster, it needs to confirm with the master node with MPI messages (blocking send)
+	If it hasn't been visited, it marks it as visited and responds positively
+	If it has been visited, it responds negatively, and the node searches for another
+The master node keeps the public lattice up-to-date - async MPI messages to the master for each lattice node traversed?
+
+There's no stitching involved so theres less time spent on the serial code, but there's a lot of message passing and potential choke if all the nodes request for data at the same time due to blocking.
