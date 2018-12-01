@@ -9,6 +9,8 @@ struct Site {
 struct Lattice {
 	// The length of one side of the lattice.
 	int size;
+	// Number of columns in a segment.
+	int segSize;
 	// The actual 2D matrix.
 	struct Site** xy;
 };
