@@ -86,7 +86,7 @@ struct Lattice newLattice(int s, double p) {
 	}
 
 	// Finally, find how many columns will form a cache aligned segment.
-	int segSize;
+	int segSize = s;
 	for (int i = 1; i <= s; i++) {
 		if (i * s * sizeof(struct Site) % cache == 0) {
 			segSize = i;
