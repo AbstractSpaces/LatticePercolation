@@ -19,3 +19,6 @@ struct Lattice {
 struct Tracker {
 	bool** done;
 };
+
+struct Lattice newLattice(int s, double p);
+void printLattice(struct Lattice lat);

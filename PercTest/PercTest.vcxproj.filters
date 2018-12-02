@@ -24,10 +24,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\PercMain\percmain.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\PercMain\structures.h">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

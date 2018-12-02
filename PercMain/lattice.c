@@ -1,7 +1,3 @@
-#include <stdio.h>
-#include <time.h>
-#include <sysinfoapi.h>
-#include <winnt.h>
 #include "percmain.h"
 
 // Used when system information about cache lines can't be retrieved.
@@ -94,22 +90,22 @@ struct Lattice newLattice(int s, double p) {
 		matrix[x] = first + x * s;
 		
 		// Now initialise the Sites along column x.
-		for (int y = 0; y < s-1; y++) {
+		for (int y = 0; y < s; y++) {
 			matrix[x][y] = (struct Site){ false, false, false, false };
 		}
 	}
 
 	// With all sites initialised, now set the bonds.
-	srand(time(NULL));
+	srand((unsigned int)time(NULL));
 
 	for (int x = 0; x < s; x++) {
 		for (int y = 0; y < s; y++) {
-			if (x < s - 1 && prob() < p) {
+			if ((x < s - 1) && (prob() < p)) {
 				matrix[x][y].right = true;
 				matrix[x + 1][y].left = true;
 			}
 
-			if (y < s - 1 && prob() < p) {
+			if ((y < s - 1) && (prob() < p)) {
 				matrix[x][y].down = true;
 				matrix[x][y+1].up = true;
 			}
@@ -117,8 +113,9 @@ struct Lattice newLattice(int s, double p) {
 	}
 
 	// Finally, find how many columns will form a cache aligned segment.
+	// Start with 1 segment per available processor and decrement until aligned.
 	int segSize = s;
-	for (int i = 1; i <= s; i++) {
+	for (int i = s / omp_get_max_threads(); i <= s; i--) {
 		if (i * s * sizeof(struct Site) % cache == 0) {
 			segSize = i;
 			break;
@@ -135,12 +132,14 @@ bool checkEmpty(struct Site s) {
 
 // Print a lattice to file.
 void printLattice(struct Lattice lat) {
-	FILE* out = fopen("lattice.txt", "w");
+	FILE* out;
 
-	if (out == NULL) {
+	if (fopen_s(&out, "lattice.txt", "w") != 0) {
 		printf("Unable to open file for printing.\n");
 		return;
 	}
+
+	fprintf(out, "Lattice size: %d\nSegment size: %d\n\n", lat.size, lat.segSize);
 
 	for (int y = 0; y < lat.size; y++) {
 		for (int x = 0; x < lat.size; x++) {
@@ -168,6 +167,8 @@ void printLattice(struct Lattice lat) {
 				fprintf(out, "  ");
 			}
 		}
+
+		fprintf(out, "\n");
 	}
 
 	fclose(out);
