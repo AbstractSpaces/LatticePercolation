@@ -50,6 +50,11 @@ size_t getCacheSize() {
 	else return cache;
 }
 
+// Get a probability between 0 and 1.
+double prob() {
+	return (double)rand() / (double)RAND_MAX;
+}
+
 // Create a lattice with size s and bond probability p.
 struct Lattice newLattice(int s, double p) {
 	// To prevent false sharing, columns in different segments shouldn't appear on the same cache line.
@@ -83,6 +88,28 @@ struct Lattice newLattice(int s, double p) {
 
 	for (int x = 0; x < s; x++) {
 		matrix[x] = first + x * s;
+		
+		// Now initialise the Sites along column x.
+		for (int y = 0; y < s-1; y++) {
+			matrix[x][y] = (struct Site){ false, false, false, false };
+		}
+	}
+
+	// With all sites initialised, now set the bonds.
+	srand(time(NULL));
+
+	for (int x = 0; x < s; x++) {
+		for (int y = 0; y < s; y++) {
+			if (x < s - 1 && prob() < p) {
+				matrix[x][y].right = true;
+				matrix[x + 1][y].left = true;
+			}
+
+			if (y < s - 1 && prob() < p) {
+				matrix[x][y].down = true;
+				matrix[x][y+1].up = true;
+			}
+		}
 	}
 
 	// Finally, find how many columns will form a cache aligned segment.
@@ -94,7 +121,5 @@ struct Lattice newLattice(int s, double p) {
 		}
 	}
 
-	// Not sure why I couldn't do this on one line.
-	struct Lattice l = {s, segSize, matrix};
-	return l;
+	return (struct Lattice){s, segSize, matrix};
 }
