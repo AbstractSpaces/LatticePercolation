@@ -1,3 +1,7 @@
+#include <stdio.h>
+#include <time.h>
+#include <sysinfoapi.h>
+#include <winnt.h>
 #include "percmain.h"
 
 // Used when system information about cache lines can't be retrieved.
@@ -122,4 +126,49 @@ struct Lattice newLattice(int s, double p) {
 	}
 
 	return (struct Lattice){s, segSize, matrix};
+}
+
+// Check if a lattice site has any bonds and should be considered empty.
+bool checkEmpty(struct Site s) {
+	return !(s.down || s.up || s.left || s.right);
+}
+
+// Print a lattice to file.
+void printLattice(struct Lattice lat) {
+	FILE* out = fopen("lattice.txt", "w");
+
+	if (out == NULL) {
+		printf("Unable to open file for printing.\n");
+		return;
+	}
+
+	for (int y = 0; y < lat.size; y++) {
+		for (int x = 0; x < lat.size; x++) {
+			if (checkEmpty(lat.xy[x][y])) {
+				fprintf(out, "  ");
+			}
+			else {
+				fprintf(out, "O");
+				if (lat.xy[x][y].right) {
+					fprintf(out, "-");
+				}
+				else {
+					fprintf(out, " ");
+				}
+			}
+		}
+
+		fprintf(out, "\n");
+
+		for (int x = 0; x < lat.size; x++) {
+			if (lat.xy[x][y].down) {
+				fprintf(out, "| ");
+			}
+			else {
+				fprintf(out, "  ");
+			}
+		}
+	}
+
+	fclose(out);
 }

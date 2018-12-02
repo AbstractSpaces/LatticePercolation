@@ -115,6 +115,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\PercMain\lattice.c" />
+    <ClCompile Include="PercTest.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\PercMain\percmain.h" />
+    <ClInclude Include="..\PercMain\structures.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
