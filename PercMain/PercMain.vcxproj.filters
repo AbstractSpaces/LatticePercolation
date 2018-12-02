@@ -15,29 +15,19 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="host" />
-    <None Include="makefile" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="main.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="merging.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="search.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="structures.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="testing.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="project.h">
+    <ClInclude Include="structures.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="percmain.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="lattice.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PercMain.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
