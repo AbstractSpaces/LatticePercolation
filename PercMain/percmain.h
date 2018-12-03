@@ -1,7 +1,6 @@
 #pragma once
 
-// Frankly I'm unsure of the best way to structure includes for a project,
-// but this project is small enough that I can throw everything into one header.
+// Frankly I'm unsure of the best way to structure includes for a project, but this project is small enough that I can throw everything into one header.
 
 #include <windows.h>
 #include <stdlib.h>
@@ -39,9 +38,19 @@ struct Vertex {
 
 // Iterative DFS algorithms require a stack.
 struct Stack {
+	// Number of items currently on the stack.
 	int size;
+	// Macimum size with currently allocated memory.
+	int max;
+
 	struct Vertex* data;
 };
 
+size_t getCacheLine();
+
 struct Lattice newLattice(int s, double p);
 void printLattice(struct Lattice lat);
+
+struct Stack newStack(int s);
+void pushStack(struct Stack stack, struct Vertex new);
+struct Vertex popStack(struct Stack stack);

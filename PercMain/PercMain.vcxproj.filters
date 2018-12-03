@@ -26,5 +26,11 @@
     <ClCompile Include="PercMain.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="stack.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cache.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
