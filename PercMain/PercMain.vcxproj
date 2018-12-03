@@ -20,11 +20,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="percmain.h" />
-    <ClInclude Include="structures.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="cache.c" />
     <ClCompile Include="lattice.c" />
     <ClCompile Include="PercMain.c" />
+    <ClCompile Include="stack.c" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
