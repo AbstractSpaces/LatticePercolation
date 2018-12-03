@@ -20,7 +20,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="percmain.h" />
-    <ClInclude Include="structures.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lattice.c" />

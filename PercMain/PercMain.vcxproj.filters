@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="structures.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="percmain.h">
       <Filter>Header Files</Filter>
     </ClInclude>
