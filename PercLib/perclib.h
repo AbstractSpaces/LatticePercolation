@@ -13,19 +13,17 @@ struct Site {
 struct Lattice {
 	// The length of one side of the lattice.
 	int size;
-	// Number of columns in a segment.
-	int segSize;
 	// The actual 2D matrix.
 	struct Site** xy;
 };
 
 // Rather than modify the lattice, search algorithms use Trackers to remember which Sites have already been traversed.
-// Like Stacks, threads will have their own Tracker.
-// Hence it needs to be cache aligned, but also it won't be square and needs a width specified.
 struct Tracker {
-	int width;
-	int height;
-	bool** done;
+	int size;
+	// Number of columns in a segment.
+	int segSize;
+	// True if a site has been traversed.
+	bool** data;
 };
 
 // It's less hassle to store co-ordinates in a 1 dimensional array of structs instead of a 2D array.
@@ -49,7 +47,8 @@ size_t getCacheLine();
 struct Lattice newLattice(int s, double p);
 void printLattice(struct Lattice lat);
 
-struct Tracker newTracker(int w, int s);
+struct Tracker newTracker(int s);
+void printTracker(struct Tracker tracker);
 
 struct Stack newStack(int s);
 void pushStack(struct Stack* stack, struct Vertex new);

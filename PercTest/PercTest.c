@@ -37,6 +37,27 @@ int main(int argc, char** argv) {
 		popStack(&stack);
 		printf("You shouldn't be reading this.\n");
 	}
+	else if (argc == 4 && argv[1][0] == 't') {
+		int s = atoi(argv[2]);
+		double p = atof(argv[3]);
+		printf("Building Tracker.\n");
+		struct Tracker tracker = newTracker(s);
+		printf("Tracker built.\n");
+		printf("segSize: %\n", tracker.segSize);
+		srand(time(NULL));
+		for (int x = 0; x < s; x++) {
+			for (int y = 0; y < s; y++) {
+				printf("Setting Tracker %d, %d", x, y);
+				if ((double)rand() / (double)RAND_MAX < p) {
+					tracker.data[x][y] = true;
+				}
+			}
+		}
+		printf("Printing Tracker.\n");
+		printTracker(tracker);
+		_aligned_free(tracker.data);
+		exit(EXIT_SUCCESS);
+	}
 
 	printf("No valid arguments.\n");
 }

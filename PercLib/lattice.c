@@ -2,6 +2,9 @@
 
 // Functions for creating and managing lattice structures.
 
+// After writing all this, I realised the lattice isn't modified in this version of project, unlike the university version.
+// Hence all the cache alignment stuff is pointless. But I've already written it and it works so I'm just going to leave it.
+
 // Get a probability between 0 and 1.
 double prob() {
 	return (double)rand() / (double)RAND_MAX;
@@ -65,6 +68,7 @@ struct Lattice newLattice(int s, double p) {
 		}
 	}
 
+	/*
 	// Finally, find how many columns will form a cache aligned segment.
 	// Start with 1 segment per available processor and decrement until aligned.
 	int segSize = s;
@@ -74,8 +78,8 @@ struct Lattice newLattice(int s, double p) {
 			break;
 		}
 	}
-
-	return (struct Lattice){s, segSize, matrix};
+	*/
+	return (struct Lattice){s, matrix};
 }
 
 // Check if a lattice site has any bonds and should be considered empty.
@@ -92,7 +96,7 @@ void printLattice(struct Lattice lat) {
 		return;
 	}
 
-	fprintf(out, "Lattice size: %d\nSegment size: %d\n\n", lat.size, lat.segSize);
+	fprintf(out, "Lattice size: %d\n\n", lat.size);
 
 	for (int y = 0; y < lat.size; y++) {
 		for (int x = 0; x < lat.size; x++) {
