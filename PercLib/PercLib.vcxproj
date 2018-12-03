@@ -22,6 +22,7 @@
     <ClCompile Include="cache.c" />
     <ClCompile Include="lattice.c" />
     <ClCompile Include="stack.c" />
+    <ClCompile Include="tracker.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="perclib.h" />

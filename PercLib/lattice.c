@@ -15,8 +15,8 @@ struct Lattice newLattice(int s, double p) {
 
 	// This method of allocating a 2D array was the main thing I learned from this project.
 	// The whole thing occupies a single contiguous chunk of memory, requiring only one malloc() and one free().
-	// The block starts with a header of double pointers, each pointing to the beginning of a column containing actual data.
-	size_t header = s * sizeof(struct Site**);
+	// The block starts with a header of pointers, each pointing to the beginning of a column containing actual data.
+	size_t header = s * sizeof(struct Site*);
 	
 	// To ensure the first column is cache aligned, there needs to be a gap of empty memory between it and the header.
 	size_t offset = header % cache;
@@ -30,7 +30,7 @@ struct Lattice newLattice(int s, double p) {
 	if (matrix == NULL) {
 		printf("Lattice allocation failed. Abort.\n");
 		// Is it dirty and cheap to just exit with no real handling or cleanup? Yes.
-		// Do I currently have the time to do otherwise? Nope.
+		// Do I currently have the time or interest to do otherwise? Nope.
 		exit(EXIT_FAILURE);
 	}
 	
