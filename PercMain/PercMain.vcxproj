@@ -19,13 +19,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="percmain.h" />
+    <ClCompile Include="PercMain.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="cache.c" />
-    <ClCompile Include="lattice.c" />
-    <ClCompile Include="PercMain.c" />
-    <ClCompile Include="stack.c" />
+    <ProjectReference Include="..\PercLib\PercLib.vcxproj">
+      <Project>{773c20bd-9db0-4728-98b4-ebf026b2f0e5}</Project>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
@@ -94,6 +93,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>..\PercLib\</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

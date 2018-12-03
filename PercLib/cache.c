@@ -1,4 +1,4 @@
-#include "percmain.h"
+#include "perclib.h"
 
 // Functions for finding cache line size, important for proper memory alignment.
 

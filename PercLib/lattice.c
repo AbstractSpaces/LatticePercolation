@@ -1,4 +1,4 @@
-#include "percmain.h"
+#include "perclib.h"
 
 // Functions for creating and managing lattice structures.
 

@@ -2,13 +2,7 @@
 
 // Frankly I'm unsure of the best way to structure includes for a project, but this project is small enough that I can throw everything into one header.
 
-#include <windows.h>
-#include <stdlib.h>
-#include <stdbool.h>
-#include <string.h>
-#include <stdio.h>
-#include <time.h>
-#include <omp.h>
+#include "stdafx.h"
 
 // A Lattice is a 2D matrix of Sites.
 struct Site {
@@ -52,5 +46,5 @@ struct Lattice newLattice(int s, double p);
 void printLattice(struct Lattice lat);
 
 struct Stack newStack(int s);
-void pushStack(struct Stack stack, struct Vertex new);
-struct Vertex popStack(struct Stack stack);
+void pushStack(struct Stack* stack, struct Vertex new);
+struct Vertex popStack(struct Stack* stack);
