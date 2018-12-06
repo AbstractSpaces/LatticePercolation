@@ -14,7 +14,7 @@ struct Lattice {
 	// The length of one side of the lattice.
 	int size;
 	// The actual 2D matrix.
-	struct Site** xy;
+	struct Site** data;
 };
 
 // Rather than modify the lattice, search algorithms use Trackers to remember which Sites have already been traversed.

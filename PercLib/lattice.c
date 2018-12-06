@@ -2,45 +2,25 @@
 
 // Functions for creating and managing lattice structures.
 
-// After writing all this, I realised the lattice isn't modified in this version of project, unlike the university version.
-// Hence all the cache alignment stuff is pointless. But I've already written it and it works so I'm just going to leave it.
-
 // Get a probability between 0 and 1.
 double prob() {
 	return (double)rand() / (double)RAND_MAX;
 }
 
 // Create a lattice with size s and bond probability p.
+// The allocation method is the same as for Trackers, except without the need for cache alignment.
 struct Lattice newLattice(int s, double p) {
-	// To prevent false sharing, columns in different segments shouldn't appear on the same cache line.
-	// So the allocation process starts by finding how cache lines are aligned.
-	size_t cache = getCacheLine();
-
-	// This method of allocating a 2D array was the main thing I learned from this project.
-	// The whole thing occupies a single contiguous chunk of memory, requiring only one malloc() and one free().
-	// The block starts with a header of pointers, each pointing to the beginning of a column containing actual data.
 	size_t header = s * sizeof(struct Site*);
-	
-	// To ensure the first column is cache aligned, there needs to be a gap of empty memory between it and the header.
-	size_t offset = header % cache;
-
-	// Finally, after the offset comes the memory actually holding Site data.
 	size_t data = s * s * sizeof(struct Site);
 
-	// Now we allocate the memory for this pointer Frankenstein.
-	struct Site** matrix = (struct Site**)_aligned_malloc(header + offset + data, cache);
+	struct Site** matrix = (struct Site**)malloc(header + data);
 
 	if (matrix == NULL) {
 		printf("Lattice allocation failed. Abort.\n");
-		// Is it dirty and cheap to just exit with no real handling or cleanup? Yes.
-		// Do I currently have the time or interest to do otherwise? Nope.
 		exit(EXIT_FAILURE);
 	}
 	
-	// Now for the magic part. We take advantage of the fact that for double pointer m: m[x][y] is equivalent to *(*m + x) + y.
-	// We just make sure *m + x points to the appropriate place in the data area.
-	// First, get the adress of the first element in the data area.
-	struct Site* first = (struct Site*)((char*)matrix + header + offset);
+	struct Site* first = (struct Site*)((char*)matrix + header);
 
 	for (int x = 0; x < s; x++) {
 		matrix[x] = first + x * s;
@@ -52,6 +32,7 @@ struct Lattice newLattice(int s, double p) {
 	}
 
 	// With all sites initialised, now set the bonds.
+	// "Up" and "left" bonds mirror "down" and "right" bonds respectively, so they are set at the same as their counterparts.
 	srand((unsigned int)time(NULL));
 
 	for (int x = 0; x < s; x++) {
@@ -68,17 +49,6 @@ struct Lattice newLattice(int s, double p) {
 		}
 	}
 
-	/*
-	// Finally, find how many columns will form a cache aligned segment.
-	// Start with 1 segment per available processor and decrement until aligned.
-	int segSize = s;
-	for (int i = s / omp_get_max_threads(); i <= s; i--) {
-		if (i * s * sizeof(struct Site) % cache == 0) {
-			segSize = i;
-			break;
-		}
-	}
-	*/
 	return (struct Lattice){s, matrix};
 }
 
@@ -100,12 +70,12 @@ void printLattice(struct Lattice lat) {
 
 	for (int y = 0; y < lat.size; y++) {
 		for (int x = 0; x < lat.size; x++) {
-			if (checkEmpty(lat.xy[x][y])) {
+			if (checkEmpty(lat.data[x][y])) {
 				fprintf(out, "  ");
 			}
 			else {
 				fprintf(out, "O");
-				if (lat.xy[x][y].right) {
+				if (lat.data[x][y].right) {
 					fprintf(out, "-");
 				}
 				else {
@@ -117,7 +87,7 @@ void printLattice(struct Lattice lat) {
 		fprintf(out, "\n");
 
 		for (int x = 0; x < lat.size; x++) {
-			if (lat.xy[x][y].down) {
+			if (lat.data[x][y].down) {
 				fprintf(out, "| ");
 			}
 			else {
