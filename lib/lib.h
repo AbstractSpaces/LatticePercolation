@@ -42,14 +42,14 @@ struct Stack {
 	struct Vertex* data;
 };
 
-size_t getCacheLine();
+size_t get_cache_line();
 
-struct Lattice newLattice(int s, double p);
-void printLattice(struct Lattice lat);
+struct Lattice new_lattice(int s, double p);
+void print_lattice(struct Lattice lat);
 
-struct Tracker newTracker(int s);
-void printTracker(struct Tracker tracker);
+struct Tracker new_tracker(int s);
+void print_tracker(struct Tracker tracker);
 
-struct Stack newStack(int s);
-void pushStack(struct Stack* stack, struct Vertex new);
-struct Vertex popStack(struct Stack* stack);
+struct Stack new_stack(int s);
+void push_stack(struct Stack* stack, struct Vertex new);
+struct Vertex pop_stack(struct Stack* stack);

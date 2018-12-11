@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PercMain", "PercMain\PercMain.vcxproj", "{2B323989-6352-4D2A-8E07-8A502F8B1BB3}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "dist", "dist\dist.vcxproj", "{2B323989-6352-4D2A-8E07-8A502F8B1BB3}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PercTest", "PercTest\PercTest.vcxproj", "{4E6E9AE9-1EE6-4313-96DE-668D63E03A27}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test", "test\test.vcxproj", "{4E6E9AE9-1EE6-4313-96DE-668D63E03A27}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PercLib", "PercLib\PercLib.vcxproj", "{773C20BD-9DB0-4728-98B4-EBF026B2F0E5}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lib", "lib\lib.vcxproj", "{773C20BD-9DB0-4728-98B4-EBF026B2F0E5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

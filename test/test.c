@@ -1,10 +1,10 @@
-#include "perclib.h"
+#include "lib.h"
 
 int testLattice(int s, double p) {
 	printf("Testing lattice.\n");
 
-	struct Lattice lat = newLattice(s, p);
-	printLattice(lat);
+	struct Lattice lat = new_lattice(s, p);
+	print_lattice(lat);
 
 	free(lat.data);
 	return EXIT_SUCCESS;
@@ -13,12 +13,12 @@ int testLattice(int s, double p) {
 int testStack(int s) {
 	printf("Testing stack.\n");
 
-	struct Stack stack = newStack(s);
+	struct Stack stack = new_stack(s);
 
 	printf("Testing push & reallocate.\n");
 	for (int i = 0; i < s * 2; i++) {
 		printf("Push #%d\n", i);
-		pushStack(&stack, (struct Vertex) { i, i });
+		push_stack(&stack, (struct Vertex) { i, i });
 	}
 
 	printf("Stack size: %d\n", stack.size);
@@ -32,12 +32,12 @@ int testStack(int s) {
 	printf("Testing pop:\n");
 	for (int i = stack.size - 1; stack.size > 0; i--) {
 		printf("Pop #%d\n", i);
-		struct Vertex v = popStack(&stack);
+		struct Vertex v = pop_stack(&stack);
 		printf("%d, %d\n", v.x, v.y);
 	}
 
 	printf("Testing pop on empty stack.\n");
-	popStack(&stack);
+	pop_stack(&stack);
 	printf("You shouldn't be reading this.\n");
 	return EXIT_FAILURE;
 }
@@ -45,7 +45,7 @@ int testStack(int s) {
 int testTracker(int s, double p) {
 	printf("Testing Tracker.\n");
 
-	struct Tracker tracker = newTracker(s);
+	struct Tracker tracker = new_tracker(s);
 
 	printf("Tracker built.\n");
 	printf("segSize: %d\n", tracker.segSize);
@@ -60,7 +60,7 @@ int testTracker(int s, double p) {
 	}
 
 	printf("Printing Tracker.\n");
-	printTracker(tracker);
+	print_tracker(tracker);
 	_aligned_free(tracker.data);
 	return EXIT_SUCCESS;
 }

@@ -1,4 +1,4 @@
-#include "perclib.h"
+#include "lib.h"
 
 // Functions for creating and managing lattice structures.
 
@@ -9,7 +9,7 @@ double prob() {
 
 // Create a lattice with size s and bond probability p.
 // The allocation method is the same as for Trackers, except without the need for cache alignment.
-struct Lattice newLattice(int s, double p) {
+struct Lattice new_lattice(int s, double p) {
 	size_t header = s * sizeof(struct Site*);
 	size_t data = s * s * sizeof(struct Site);
 
@@ -53,12 +53,12 @@ struct Lattice newLattice(int s, double p) {
 }
 
 // Check if a lattice site has any bonds and should be considered empty.
-bool checkEmpty(struct Site s) {
+bool check_empty(struct Site s) {
 	return !(s.down || s.up || s.left || s.right);
 }
 
 // Print a lattice to file.
-void printLattice(struct Lattice lat) {
+void print_lattice(struct Lattice lat) {
 	FILE* out;
 
 	if (fopen_s(&out, "lattice.txt", "w") != 0) {
@@ -70,7 +70,7 @@ void printLattice(struct Lattice lat) {
 
 	for (int y = 0; y < lat.size; y++) {
 		for (int x = 0; x < lat.size; x++) {
-			if (checkEmpty(lat.data[x][y])) {
+			if (check_empty(lat.data[x][y])) {
 				fprintf(out, "  ");
 			}
 			else {

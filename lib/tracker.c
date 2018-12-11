@@ -1,11 +1,11 @@
-#include "perclib.h"
+#include "lib.h"
 
 // Code for creating and managing Tracker structures.
 
-struct Tracker newTracker(int s) {
+struct Tracker new_tracker(int s) {
 	// To prevent false sharing, columns in different segments shouldn't appear on the same cache line.
 	// So the allocation process starts by finding how cache lines are aligned.
-	size_t cache = getCacheLine();
+	size_t cache = get_cache_line();
 
 	// This method of allocating a 2D array was the main thing I learned from this project.
 	// The whole thing occupies a single contiguous chunk of memory, requiring only one malloc() and one free().
@@ -53,7 +53,7 @@ struct Tracker newTracker(int s) {
 }
 
 // Print Tracker data to file.
-void printTracker(struct Tracker tracker) {
+void print_tracker(struct Tracker tracker) {
 	FILE* out;
 
 	if (fopen_s(&out, "tracker.txt", "w") != 0) {
