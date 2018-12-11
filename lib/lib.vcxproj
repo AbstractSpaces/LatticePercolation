@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cache.c" />
+    <ClCompile Include="cluster.c" />
     <ClCompile Include="lattice.c" />
     <ClCompile Include="stack.c" />
     <ClCompile Include="tracker.c" />

@@ -7,6 +7,8 @@
 // A Lattice is a 2D matrix of Sites.
 struct Site {
 	// Each bool represents a bond in a direction away from the site.
+	// In terms of array indices where the array is accessed with A[x][y], the directions are:
+	// up == >y, down == <y, left == >x, right == <x.
 	bool up, down, left, right;
 };
 
@@ -21,7 +23,7 @@ struct Lattice {
 struct Tracker {
 	int size;
 	// Number of columns in a segment.
-	int segSize;
+	int seg_size;
 	// True if a site has been traversed.
 	bool** data;
 };
@@ -42,6 +44,15 @@ struct Stack {
 	struct Vertex* data;
 };
 
+struct Cluster {
+	// Clusters need unique identifiers to prevent the same pair being stitched twice.
+	int id;
+	// Number of sites contained.
+	int size;
+	// Dimensions indicating how far the cluster spans.
+	int x_min, x_max, y_min, y_max;
+};
+
 size_t get_cache_line();
 
 struct Lattice new_lattice(int s, double p);
@@ -53,3 +64,5 @@ void print_tracker(struct Tracker tracker);
 struct Stack new_stack(int s);
 void push_stack(struct Stack* stack, struct Vertex new);
 struct Vertex pop_stack(struct Stack* stack);
+
+struct Cluster stitch_clusters(struct Cluster left, struct Cluster right);

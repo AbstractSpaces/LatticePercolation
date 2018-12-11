@@ -48,7 +48,7 @@ int testTracker(int s, double p) {
 	struct Tracker tracker = new_tracker(s);
 
 	printf("Tracker built.\n");
-	printf("segSize: %d\n", tracker.segSize);
+	printf("seg_size: %d\n", tracker.seg_size);
 
 	srand((unsigned int)time(NULL));
 	for (int x = 0; x < s; x++) {

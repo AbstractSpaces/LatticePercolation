@@ -41,15 +41,15 @@ struct Tracker new_tracker(int s) {
 
 	// Finally, find how many columns will form a cache aligned segment.
 	// Start with 1 segment per available processor and decrement until aligned.
-	int segSize = 1;
+	int seg_size = 1;
 	for (int i = s / omp_get_max_threads(); i > 0; i--) {
 		if (i * s * sizeof(bool) % cache == 0) {
-			segSize = i;
+			seg_size = i;
 			break;
 		}
 	}
 
-	return (struct Tracker) { s, segSize, matrix };
+	return (struct Tracker) { s, seg_size, matrix };
 }
 
 // Print Tracker data to file.

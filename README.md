@@ -86,6 +86,6 @@ Sub-clusters stitched and final cluster list returned to caller.
 
 ## Stitching
 
-Sub-clusters stitched 2 at a time by looking at the bonds crossing their border left to right.
-The joined clusters are replaced with a new structure holding their summed values.
+Segments are stitched 2 at a time by looking at the bonds crossing their border left to right.
+Touching clusters are identified and replaced with a new structure holding their summed values.
 Can be done in parallel by giving each thread a pair of segments to stitch and iteratively turning pairs into a single segment until the lattice is whole again.
