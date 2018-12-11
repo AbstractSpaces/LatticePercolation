@@ -17,7 +17,7 @@ This is a polished and re-implemented version of that project.
 
 ## Functional Overview
 
-The program generates a 2D lattice with user specified size and bond probabilty. The lattice used can be output for visual inspection and reuse.
+The program generates a 2D lattice with user specified size and bond probabilty. The lattice used is output to file for visual inspection.
 
 When run in "Test" mode, the program analyses the lattice for percolation (utilising a user determined number of threads) and outputs the size and dimensions of the clusters found, and how long the program took to complete.
 
@@ -31,6 +31,17 @@ The original project was written in C, which I'm sticking with here as I want to
 The original project required the lattice to support clusters wrapping around to the other side when they reached the edge.
 I'm omitting that now as it made things trickier without adding a whole lot to the learning exercise.
 I'm also omitting the MPI part of the project as I don't have access to a system that can properly test that functionality.
+
+## Developer Diary
+
+As of right now, two things about my work here stand out to as substandard.
+
+One is the complete lack of error handling, the program just exits whenever a system call doesn't return what it's supposed to.
+If I had more time and energy to devote to the project, I'd make the effort to do multiple attempts and provide a more detailed error report.
+
+The other is my Git workflow being kind of whack.
+I'm still learning the dos and don'ts of version control and several times I've made changes in the wrong branch or written less than ideal commit messages.
+But I try to be aware of when I've done a bad or made an amateur move, and hopefully will do better in future.
 
 # Data Structure Designs
 
@@ -51,7 +62,7 @@ Includes:
 * Indices of lowest and highest columns and rows spanned by cluster.
 * Vertical coordinates of any bonds crossing into the next lattice segment.
 
-## Cursor
+## Tracker
 
 To allow the same structure being reused in Compare mode, the lattice itself should be immutable.
 Tracking which sites have been seen and searched are done with a separate structure.
