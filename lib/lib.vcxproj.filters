@@ -6,6 +6,7 @@
     <ClCompile Include="stack.c" />
     <ClCompile Include="tracker.c" />
     <ClCompile Include="cluster.c" />
+    <ClCompile Include="serial_dfs.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib.h" />

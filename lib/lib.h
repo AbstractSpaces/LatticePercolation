@@ -53,9 +53,16 @@ struct Cluster {
 	int x_min, x_max, y_min, y_max;
 };
 
+struct Cluster_List {
+	int size;
+	int max;
+	struct Cluster* data;
+};
+
 size_t get_cache_line();
 
 struct Lattice new_lattice(int s, double p);
+bool check_empty(struct Site s);
 void print_lattice(struct Lattice lat);
 
 struct Tracker new_tracker(int s);
@@ -66,3 +73,5 @@ void push_stack(struct Stack* stack, struct Vertex new);
 struct Vertex pop_stack(struct Stack* stack);
 
 struct Cluster stitch_clusters(struct Cluster left, struct Cluster right, int* num_clusters);
+struct Cluster_List new_cluster_list(int s);
+void push_cluster(struct Cluster_List* list, struct Cluster new);
