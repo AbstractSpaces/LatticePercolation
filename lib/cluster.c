@@ -48,3 +48,15 @@ void push_cluster(struct Cluster_List* list, struct Cluster new) {
 	list->data[list->size] = new;
 	list->size++;
 }
+
+void print_cluster_list(struct Cluster_List list) {
+	printf("\nClusters:\n\n");
+	for (int i = 0; i < list.size; i++) {
+		struct Cluster c = list.data[i];
+		printf("ID: %d\n", c.id);
+		printf("Size: %d\n", c.size);
+		printf("X Range: %d - %d\n", c.x_min, c.x_max);
+		printf("Y Range: %d - %d\n", c.y_min, c.y_max);
+		printf("\n");
+	}
+}

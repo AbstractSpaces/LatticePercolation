@@ -65,6 +65,14 @@ int testTracker(int s, double p) {
 	return EXIT_SUCCESS;
 }
 
+int test_serial(int s, double p) {
+	struct Lattice lat = new_lattice(s, p);
+	print_lattice(lat);
+	struct Cluster_List list = serial_dfs(lat);
+	print_cluster_list(list);
+	return EXIT_SUCCESS;
+}
+
 int main(int argc, char** argv) {
 	if (argc == 4 && argv[1][0] == 'l') {
 		int s = atoi(argv[2]);
@@ -79,6 +87,12 @@ int main(int argc, char** argv) {
 		int s = atoi(argv[2]);
 		double p = atof(argv[3]);
 		return testTracker(s, p);
+	}
+	// strmp() isn't working as expected, hence individual character comparisons.
+	else if (argc == 4 && argv[1][0] == 'd' && argv[1][1] == 's') {
+		int s = atoi(argv[2]);
+		double p = atof(argv[3]);
+		return test_serial(s, p);
 	}
 
 	printf("No valid arguments.\n");

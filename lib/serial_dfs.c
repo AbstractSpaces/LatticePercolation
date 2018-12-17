@@ -43,7 +43,7 @@ struct Cluster_List serial_dfs(struct Lattice lat) {
 				if (v.y > clust.y_max) {
 					clust.y_max = v.y;
 				}
-				if (v.x < clust.x_min) {
+				if (v.y < clust.y_min) {
 					clust.y_min = v.y;
 				}
 

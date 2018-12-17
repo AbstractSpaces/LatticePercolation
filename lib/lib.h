@@ -75,3 +75,6 @@ struct Vertex pop_stack(struct Stack* stack);
 struct Cluster stitch_clusters(struct Cluster left, struct Cluster right, int* num_clusters);
 struct Cluster_List new_cluster_list(int s);
 void push_cluster(struct Cluster_List* list, struct Cluster new);
+void print_cluster_list(struct Cluster_List list);
+
+struct Cluster_List serial_dfs(struct Lattice lat);
