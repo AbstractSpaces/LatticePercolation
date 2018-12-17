@@ -65,4 +65,4 @@ struct Stack new_stack(int s);
 void push_stack(struct Stack* stack, struct Vertex new);
 struct Vertex pop_stack(struct Stack* stack);
 
-struct Cluster stitch_clusters(struct Cluster left, struct Cluster right);
+struct Cluster stitch_clusters(struct Cluster left, struct Cluster right, int* num_clusters);
